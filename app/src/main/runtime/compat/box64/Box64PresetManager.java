@@ -167,6 +167,17 @@ public abstract class Box64PresetManager {
     presets.add(
         new Box64Preset(
             Box64Preset.PERFORMANCE, context.getString(R.string.container_box64_performance)));
+
+    // These profiles are Box64-specific. Do not expose them for FEX prefixes.
+    if ("BOX64".equalsIgnoreCase(prefix)) {
+      presets.add(
+          new Box64Preset(
+              HELIO_BALANCED, context.getString(R.string.container_box64_helio_balanced)));
+      presets.add(
+          new Box64Preset(
+              HELIO_PERFORMANCE, context.getString(R.string.container_box64_helio_performance)));
+    }
+
     for (String[] preset : customPresetsIterator(prefix, context))
       presets.add(new Box64Preset(preset[0], preset[1]));
     return presets;
