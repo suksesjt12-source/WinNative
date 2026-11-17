@@ -681,6 +681,8 @@
     <string name="container_box64_compatibility">Compatibility</string>
     <string name="container_box64_intermediate">Intermediate</string>
     <string name="container_box64_performance">Performance</string>
+    <string name="container_box64_helio_balanced">Helio G99/G100 Balanced</string>
+    <string name="container_box64_helio_performance">Helio G99/G100 Performance</string>
     <string name="container_fexcore_performance_tso">Performance TSO</string>
     <string name="container_fexcore_extreme">Extreme</string>
     <string name="container_fexcore_extreme_tso">Extreme TSO</string>
