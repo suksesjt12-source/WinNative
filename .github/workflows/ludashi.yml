@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: WinNative-Helio-Standard-APK
-          path: app/build/outputs/apk/standard/debug/standard.apk
+          path: app/build/outputs/apk/standard/debug/*.apk
           if-no-files-found: error
           retention-days: 7
           compression-level: 0
@@ -59,7 +59,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: WinNative-Helio-Ludashi-APK
-          path: app/build/outputs/apk/ludashi/debug/ludashi.apk
+          path: app/build/outputs/apk/ludashi/debug/*.apk
           if-no-files-found: error
           retention-days: 7
           compression-level: 0
