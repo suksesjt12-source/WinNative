@@ -26,12 +26,49 @@ import java.util.Locale;
 
 public abstract class Box64PresetManager {
   private static final String TAG = "Box64PresetManager";
+  public static final String HELIO_BALANCED = "HELIO_BALANCED";
+  public static final String HELIO_PERFORMANCE = "HELIO_PERFORMANCE";
 
   public static EnvVars getEnvVars(String prefix, Context context, String id) {
     String ucPrefix = prefix.toUpperCase(Locale.ENGLISH);
     EnvVars envVars = new EnvVars();
 
-    if (id.equals(Box64Preset.STABILITY)) {
+    if (id.equals(HELIO_BALANCED)) {
+      // Conservative dynarec profile for ARM big.LITTLE devices such as Helio G99/G100.
+      // Avoids the most aggressive block/forward settings to reduce compile and thermal pressure.
+      envVars.put(ucPrefix + "_DYNAREC_SAFEFLAGS", "1");
+      envVars.put(ucPrefix + "_DYNAREC_FASTNAN", "1");
+      envVars.put(ucPrefix + "_DYNAREC_FASTROUND", "1");
+      envVars.put(ucPrefix + "_DYNAREC_X87DOUBLE", "0");
+      envVars.put(ucPrefix + "_DYNAREC_BIGBLOCK", "2");
+      envVars.put(ucPrefix + "_DYNAREC_STRONGMEM", "0");
+      envVars.put(ucPrefix + "_DYNAREC_FORWARD", "256");
+      envVars.put(ucPrefix + "_DYNAREC_CALLRET", "1");
+      envVars.put(ucPrefix + "_DYNAREC_WAIT", "1");
+      if (ucPrefix.equals("BOX64")) {
+        envVars.put("BOX64_AVX", "0");
+        envVars.put("BOX64_UNITYPLAYER", "0");
+        envVars.put("BOX64_MMAP32", "1");
+        envVars.put("BOX64_DYNACACHE", "0");
+      }
+    } else if (id.equals(HELIO_PERFORMANCE)) {
+      // More aggressive dynarec profile. Game stability and sustained FPS remain title-dependent.
+      envVars.put(ucPrefix + "_DYNAREC_SAFEFLAGS", "1");
+      envVars.put(ucPrefix + "_DYNAREC_FASTNAN", "1");
+      envVars.put(ucPrefix + "_DYNAREC_FASTROUND", "1");
+      envVars.put(ucPrefix + "_DYNAREC_X87DOUBLE", "0");
+      envVars.put(ucPrefix + "_DYNAREC_BIGBLOCK", "3");
+      envVars.put(ucPrefix + "_DYNAREC_STRONGMEM", "0");
+      envVars.put(ucPrefix + "_DYNAREC_FORWARD", "512");
+      envVars.put(ucPrefix + "_DYNAREC_CALLRET", "1");
+      envVars.put(ucPrefix + "_DYNAREC_WAIT", "1");
+      if (ucPrefix.equals("BOX64")) {
+        envVars.put("BOX64_AVX", "0");
+        envVars.put("BOX64_UNITYPLAYER", "0");
+        envVars.put("BOX64_MMAP32", "1");
+        envVars.put("BOX64_DYNACACHE", "0");
+      }
+    } else if (id.equals(Box64Preset.STABILITY)) {
       envVars.put(ucPrefix + "_DYNAREC_SAFEFLAGS", "2");
       envVars.put(ucPrefix + "_DYNAREC_FASTNAN", "0");
       envVars.put(ucPrefix + "_DYNAREC_FASTROUND", "0");
